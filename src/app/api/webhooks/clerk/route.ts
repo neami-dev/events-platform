@@ -1,10 +1,24 @@
 import { Webhook } from "svix";
 import { headers } from "next/headers";
-import { clerkClient, WebhookEvent } from "@clerk/nextjs/server";
+import {WebhookEvent } from "@clerk/nextjs/server";
 import { createUser, deleteUser, updateUser } from "@/lib/actions/user.actions";
- 
-import { NextResponse } from "next/server";
+import { clerkClient } from '@clerk/clerk-sdk-node';
 
+import { NextResponse } from "next/server";
+// export async function POST(req: Request) {
+    
+//         const user = {
+//             clerkId:"dkdk933" ,
+//             email: "test@example.com",
+//             username: "ahmed",
+//             firstName:"hamoda",
+//             lastName: "kejkeke",
+//             photo: "dkekeke",
+//         };
+
+//         const newUser = await createUser(user);
+//         return NextResponse.json({ message: "OK", user: newUser });
+// };
 export async function POST(req: Request) {
     // You can find this in the Clerk Dashboard -> Webhooks -> choose the webhook
     const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET;
