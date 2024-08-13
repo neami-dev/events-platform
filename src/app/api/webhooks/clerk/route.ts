@@ -1,12 +1,11 @@
 import { Webhook } from "svix";
 import { headers } from "next/headers";
-import {clerkClient, WebhookEvent } from "@clerk/nextjs/server";
+import { clerkClient, WebhookEvent } from "@clerk/nextjs/server";
 import { createUser, deleteUser, updateUser } from "@/lib/actions/user.actions";
-
 
 import { NextResponse } from "next/server";
 // export async function POST(req: Request) {
-    
+
 //         const user = {
 //             clerkId:"dkdk933" ,
 //             email: "test@example.com",
@@ -69,9 +68,8 @@ export async function POST(req: Request) {
     const { id } = evt.data;
     const eventType = evt.type;
 
-    console.log("eventType",eventType);
+    console.log("eventType", eventType);
     if (eventType === "user.created") {
-        
         const {
             id,
             email_addresses,
@@ -89,11 +87,10 @@ export async function POST(req: Request) {
             lastName: last_name as string,
             photo: image_url,
         };
-        console.log("user",user);
-        
+
         const newUser = await createUser(user);
-        console.log("newUser",newUser);
-        
+        console.log("newUser", newUser);
+
         if (newUser) {
             await clerkClient.users.updateUserMetadata(id, {
                 publicMetadata: {
@@ -122,6 +119,7 @@ export async function POST(req: Request) {
 
     if (eventType === "user.deleted") {
         const { id } = evt.data;
+        console.log("id==", id);
 
         const deletedUser = await deleteUser(id!);
 
