@@ -11,6 +11,8 @@ const Checkout = ({ event, userId }: { event: IEvent; userId: string }) => {
     useEffect(() => {
         // Check to see if this is a redirect back from Checkout
         const query = new URLSearchParams(window.location.search);
+        console.log("query",query);
+        
         if (query.get("success")) {
             console.log(
                 "Order placed! You will receive an email confirmation."
@@ -32,7 +34,8 @@ const Checkout = ({ event, userId }: { event: IEvent; userId: string }) => {
             isFree: event.isFree,
             buyerId: userId,
         };
-
+        console.log("order",order);
+        
         await checkoutOrder(order);
     };
 
